@@ -57,9 +57,10 @@ git push origin nltk-training
 Finally, on github, open a pull request.
 
 ## 3. Project assignments
+## Day 1 project assignments
 | Name | Section | Description |
 |------|---------|-------------|
-| Clement | `Regression training`| Carry out a NLP regression |
-| Simon | `SpaCy Training` | Carry out SpaCy |
-| Godwin | `NLTK Training` | Carry out NLTK |
-| George | `Regression training` | Carry out a NLP regression |
+| Clement | `Data Cleaning and filtering`| Carry out initial data cleaning on the dataset |
+| Simon | `Data exploration` | Look for publicly available data and best classification algorithm |
+| Godwin | `Data exploration` | Look for publicly available data and best classification algorithm |
+| George | `Data exploration` | Look for publicly available data and best classification algorithm |
