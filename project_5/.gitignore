@@ -87,3 +87,5 @@ implementation.md
 .private/
 
 # Dataset
+data/glove.6B.zip
+data/glove/
