@@ -91,3 +91,5 @@ data/
 
 #personal practice
 practice/
+data/glove.6B.zip
+data/glove/
