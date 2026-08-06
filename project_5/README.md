@@ -10,7 +10,7 @@ Title: Clinical Text Mining
 
 Dates: July - August 2026
 
-Description: The purpose of this project is to carry out clinical text mining to enable us to predict medical specialities required from a transcript of a patient's visit to the hospital.
+Description: The purpose of this project is to carry out clinical text mining to enable us to predict medical specialties required from a transcript of a patient's visit to the hospital.
 
 Contributors:
 - Godwin Mutai
@@ -23,13 +23,13 @@ Funding Organisation: The training and platform to do this work was provided by 
 # 2. Dataset
 The dataset utilised in this project is the [mtsamples dataset by Hugging Face](https://huggingface.co/datasets/harishnair04/mtsamples).
 
-Description: The dataset contains 4999 rows of deidentified patient transcripts data from a hospital visit, labelled with the medical speciality they required - determined by a specialist.
+Description: The dataset contains 4999 rows of de-identified patient transcripts data from a hospital visit, labelled with the medical specialty they required - determined by a specialist.
 
 The features include:
 - `description`: An overview description of the patient's condition
-- `medical_speciality`: The medical speciality a patient's condition belonged to.
+- `medical_specialty`: The medical specialty a patient's condition belonged to.
 - `sample_name`: The type of sample (if any) collected from the patient during their visit.
-- `transcription`: The full, indepth transcription of the patients visit from the arrival at the facility, to the tests carried out e.t.c
+- `transcription`: The full, indepth transcription of the patients visit from the arrival at the facility, to the tests carried out etc.
 - `keywords`: Keywords identified from the transcription information.
 
 # 3. Content
@@ -479,3 +479,25 @@ A different hypothetical question arose, which is, `Is it possible to predict br
 This pathway allowed for us to utilise more data than path 1 while simultaneously loosing granularity as a trade-off.
 
 # 5. Results and conclusion
+The results of the model training performance is shown below:
+![training_comparisons](results/classifier_comparison_dumbbell_v3.png)
+Across both pathways, naive TF-IDF performed better than the other methods of feature representation. 
+
+The total results of the best performing model wich was a combination of TF-IDF and multinomial logistic regression is shown:
+![best_model_results](results/best_model_train_vs_test.png)
+The best model had a Macro F1 score of 0.62
+
+An analysis of the feature distribution from the aforementioned best performing model: TF-IDF + Multinomial Logistic Regression on a PCA plot can be seen below:
+
+![tfidf_tsne](plots/tSNE_TFIDF.png)
+
+The PCA plot shows that there is little to no clustering of the features on PC1 and PC2. Medical terms - it would seem are very interrelated and thus quite difficult to find differences between the various specialties. This further vindicated the low scores obtained by the models.
+
+An inspection of the best performing model's metrics can be seen below:
+
+![model_bubble_chart](plots/precision_recall_tradeoff.png)
+![model_heatmap](plots/metrics_heatmap.png)
+
+Probably as expected. The class surgical and procedural had the best macro F1 score.
+
+We do not believe that the best model is ready to be used in any clinical set up. Perhaps the next step is to use a transformer, which many quarters believe can be a better classifier than the normal ML models. We intend to do that work as soon as have enough computational power.
