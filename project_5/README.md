@@ -1,9 +1,77 @@
-# Introduction
-The purpose of this project is to carry out clinical text mining to enable us to predict medical specialities required from a transcript of a patient's visit to the hospital.
+# 0. Sections
+1. Project
+2. Dataset
+3. Contents
+4. Methods and processing
+5. Results and conclusions
 
-# Project flow chart.
+# 1. Project
+Title: Clinical Text Mining
+
+Dates: July - August 2026
+
+Description: The purpose of this project is to carry out clinical text mining to enable us to predict medical specialities required from a transcript of a patient's visit to the hospital.
+
+Contributors:
+- Godwin Mutai
+- Simon kimanzi
+- George Obanda
+- Clement Mwagwabi
+
+Funding Organisation: The training and platform to do this work was provided by Eneza Data Science
+
+# 2. Dataset
+The dataset utilised in this project is the [mtsamples dataset by Hugging Face](https://huggingface.co/datasets/harishnair04/mtsamples).
+
+Description: The dataset contains 4999 rows of deidentified patient transcripts data from a hospital visit, labelled with the medical speciality they required - determined by a specialist.
+
+The features include:
+- `description`: An overview description of the patient's condition
+- `medical_speciality`: The medical speciality a patient's condition belonged to.
+- `sample_name`: The type of sample (if any) collected from the patient during their visit.
+- `transcription`: The full, indepth transcription of the patients visit from the arrival at the facility, to the tests carried out e.t.c
+- `keywords`: Keywords identified from the transcription information.
+
+# 3. Content
+The project directory looks like this
+
+```
+.
+├── CONTRIBUTING.md                                   <- Contributing file to set up this environment and contribute to it.
+├── README.md                                         <- This file
+├── requirements.txt                                  <- Python dependencies for this project
+├── plots                                             <- All necessary figures from this project
+│   ├── all_classes_top_highlighted.png
+│   ├── classification_report_by_f1.png
+│   ├── full_classes_by_superclasses.png
+│   ├── metrics_heatmap.png
+│   ├── PCA_TFIDF.png
+│   ├── precision_recall_tradeoff.png
+│   ├── super_class_distribution.png
+│   ├── TFIDF_LogisticRegression_ConfusionMatrix.png
+│   └── top_classes.png
+├── results                                      
+│   ├── collected_metrics.csv                         <- A CSV file of all collected metrices from model training and testing (Used for reporting)
+│   └── results.ipynb                                 <- A results notebook for any metric analysis (Used for reporting)
+└── src                                               <- Main analysis folder
+    ├── data_cleaning.ipynb                           <- Data cleaning module. This is also where the two pathway data is generated
+    ├── fasttext_dim_red.ipynb                        <- ML algorithm using fasttext to determine feature representation for pathway 2
+    ├── fasttext_top.ipynb                            <- ML algorithm using fasttext to determine feature representation for pathway 1
+    ├── glove_dim_red.ipynb                           <- ML algorithm using glove to determine feature representation for pathway 2
+    ├── glove_top.ipynb                               <- ML algorithm using glove to determine feature representation for pathway 1
+    ├── ner_dim_red.ipynb                             <- ML algorithm using SpaCy's Named Entity Recognition to determine feature representation for pathway 2
+    ├── ner_top.ipynb                                 <- ML algorithm using SpaCy's NER to determine feature representation for pathway 1
+    ├── tfidf_dim_red.ipynb                           <- ML algorithm using naive TF-IDF to determine feature representation for pathway 2
+    ├── tfidf_top.ipynb                               <- ML algorithm using naive TF-IDF to determine feature representation for pathway 1
+    ├── word2vec_dim_red.ipynb                        <- ML algorithm using Word2Vec to determine feature representation for pathway 2
+    └── word2vec_top.ipynb                            <- ML algorithm using Word2Vec to determine feature representation for pathway 1
+```
+
+# 4. Methods and processing
+
 ## Project overview
-The overview of the project looks like this:
+
+To achieve the objectives of the study, we sought to carry out the following steps.
 ```mermaid
 flowchart TD
     A["Raw Clinical Transcription Dataset<br/>Total shape: 4999, 5<br/>Number of specialities: 40"] --> B["Data Preprocessing<br/>Drop NAs, strip whitespace"]
@@ -30,6 +98,8 @@ flowchart TD
     class A,B,D,E,D2,E2,H,I,K box;
     class C,J decision;
     class HP tuning;
+
+    linkStyle default stroke-width:3px,stroke:black;
 ```
 
 ## Path 1 - Top medical specialities
@@ -389,3 +459,23 @@ flowchart TD
     style P2_D fill:#faedfc,stroke:#a355bf,stroke-width:1px
     style P2_E fill:#e9fbf6,stroke:#1f9c85,stroke-width:1px
 ```
+
+## Pathway analysis
+
+Analysis of the specialties column revealed 40 classes with their distribution as shown below:
+
+![specialities](plots/all_classes_top_highlighted.png)
+
+A closer look at the specialties with more than 100 transcripts can be seen below:
+
+![top_specialties](plots/top_classes.png)
+
+These were the classes/target for the classifiers for all of path 1 models. This pathway was investigated to answer the question, `Is it possible to predict the most sought after specialties?`
+
+A different hypothetical question arose, which is, `Is it possible to predict broader classes?`. The broader classes were obtained from [ultimate list of medical specialties](https://www.sgu.edu/blog/medical/ultimate-list-of-medical-specialties/). Grouping our medical specialties then resulted in the distribution as shown below:
+
+![medical_superclasses](plots/super_class_distribution.png)
+
+This pathway allowed for us to utilise more data than path 1 while simultaneously loosing granularity as a trade-off.
+
+# 5. Results and conclusion
